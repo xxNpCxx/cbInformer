@@ -43,9 +43,9 @@ class ApiController extends BaseController
         $prevDayDate = date(CBRClient::CBR_DATE_FORMAT, strtotime($date . '- ' . self::MAX_DAYS_RANGE . ' day'));
         $rates = $this->CBRClient->getDynamicRate($prevDayDate, $date, $code);
         if ($rates) {
-            $fromDayRate = $rates[0];
-            $toDayRate = $rates[1];
-            $diff = $fromDayRate - $toDayRate;
+            $toDayRate = array_pop($rates);
+            $fromDayRate = array_pop($rates);
+            $diff = $toDayRate - $fromDayRate ;
             $response = [
                 'data' => [
                     'currentRate' => $toDayRate,
@@ -77,8 +77,8 @@ class ApiController extends BaseController
         $quoteRates = $this->CBRClient->getDynamicRate($prevDayDate, $date, $quoteCode);
 
         if ($baseRates && $quoteRates) {
-            $prevCrossRate = (float)$baseRates[0] / (float)$quoteRates[0];
-            $crossRate = (float)$baseRates[1] / (float)$quoteRates[1];
+            $crossRate = (float)array_pop($baseRates) / (float)array_pop($quoteRates);
+            $prevCrossRate = (float)array_pop($baseRates) / (float)array_pop($quoteRates);
 
             $response = [
                 'data' => [
