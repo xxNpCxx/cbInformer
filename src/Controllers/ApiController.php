@@ -35,8 +35,9 @@ class ApiController extends BaseController
     public function getCurrencyRateDiff()
     {
         $code = $this->request->request->get('code') ?? self::DEFAULT_CURRENCY_CODE;
-        $date = $this->request->request->get('date') ?? date(CBRClient::CBR_DATE_FORMAT);
-
+        $date = $this->request->request->get('date')
+            ? date(CBRClient::CBR_DATE_FORMAT, strtotime($this->request->request->get('date')))
+            : date(CBRClient::CBR_DATE_FORMAT);
         $prevDayDate = date(CBRClient::CBR_DATE_FORMAT, strtotime($date . '- 1 day'));
         $rates = $this->CBRClient->getDynamicRate($prevDayDate, $date, $code);
         if (count($rates) == 2) {
@@ -62,7 +63,9 @@ class ApiController extends BaseController
      */
     public function getCrossCurrencyRateDiff()
     {
-        $date = $this->request->request->get('date') ?? date(CBRClient::CBR_DATE_FORMAT);
+        $date = $this->request->request->get('date')
+            ? date(CBRClient::CBR_DATE_FORMAT, strtotime($this->request->request->get('date')))
+            : date(CBRClient::CBR_DATE_FORMAT);
         $baseCode = $this->request->request->get('baseCode', self::DEFAULT_CURRENCY_CODE);
         $quoteCode = $this->request->request->get('quoteCode', null);
 
