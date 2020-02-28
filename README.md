@@ -2,12 +2,11 @@
 
 INSTALL : 
 
-1) clone repo
-2) composer install
-3) php -S localhost:8080
+1) clone repo and cd into cloned folder
+2) RUN FROM ROOT DIR : `composer install`
+3) RUN FROM ROOT DIR : `php -S localhost:8080 -t public`
 
-use POSTMAN for POST request
+Use POSTMAN or curl for POST request for these endpoints
 
-http://localhost:8080/get-cross-currency-rate-diff
-
-http://localhost:8080/get-currency-rate-diff
+POST get-cross-currency-rate-diff
+POST get-currency-rate-diff
