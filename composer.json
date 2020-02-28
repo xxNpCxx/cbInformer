@@ -1,0 +1,32 @@
+{
+  "name": "xxnpcxx/cbinformer",
+  "type": "project",
+  "authors": [
+    {
+      "name": "xxNpCxx",
+      "email": "xxNpCxx@gmail.com"
+    }
+  ],
+  "require": {
+    "bramus/router": "^1.4",
+    "symfony/http-foundation": "^5.0",
+    "divineomega/do-file-cache": "^2.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "cbInformer\\": "src/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set default_standard Zend"
+    ],
+    "check": [
+      "php ./vendor/squizlabs/php_codesniffer/bin/phpcbf --standard=Zend ./src",
+      "php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=Zend ./src"
+    ]
+  }
+}
